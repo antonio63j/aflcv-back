@@ -260,7 +260,7 @@ public class UtilPdf {
 		innertable.addCell(cell);
 
 		// column 2
-		cell = new Cell().add(new Paragraph("https://micv-front.web.app/").setFont(fontCampo).setFontSize(10)
+		cell = new Cell().add(new Paragraph("https://aflcv-front.web.app/").setFont(fontCampo).setFontSize(10)
 				.setFontColor(ColorConstants.DARK_GRAY, 0.9f));
 		cell.setPaddingLeft(2);
 		innertable.addCell(cell);
