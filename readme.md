@@ -30,6 +30,7 @@ Definiendo clave única con el par "proyecto_id" y "herramienta_id, eliminamos e
             ]     
         }
 
+
 La clase Herramienta se ha definido así:
 
     @JsonIgnore
