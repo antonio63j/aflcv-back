@@ -43,6 +43,10 @@ public class DownloadFileController {
 
 	@Autowired
 	private IDownloadFileService downloadFileService;
+	
+	@Value("${app.downloadsDir:downloads}")
+	private String downloadsDir;
+	
 
 	@Value("${app.deployed:heroku}")
 	private String deployed;
@@ -50,7 +54,7 @@ public class DownloadFileController {
 	@RequestMapping(value = "download/pdf/{fileName:.+}", method = RequestMethod.GET, produces = "application/pdf")
 	public ResponseEntity<InputStreamResource> download(@PathVariable("fileName") String fileName) throws IOException {
 		System.out.println("Calling Download:- " + fileName);
-		ClassPathResource pdfFile = new ClassPathResource(DownloadFileService.DIRECTORIO_DOWNLOAD + fileName);
+		ClassPathResource pdfFile = new ClassPathResource(downloadsDir + fileName);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.parseMediaType("application/pdf"));
 		// headers.add("Access-Control-Allow-Origin", "*");
@@ -74,7 +78,7 @@ public class DownloadFileController {
 	}
 
 	public Resource cargar(String nombrefichero) throws MalformedURLException {
-		Path path = getPath(DownloadFileService.DIRECTORIO_DOWNLOAD, nombrefichero);
+		Path path = getPath(downloadsDir, nombrefichero);
 		// Path path = getPath("src/main/resources/static", nombrefichero); //
 		// app/src/...
 

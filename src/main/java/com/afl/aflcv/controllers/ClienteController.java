@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -55,8 +56,11 @@ import com.afl.aflcv.services.files.IUploadFileService;
 
 public class ClienteController {
 
-	public final static String DIRECTORIO_UPLOAD = "uploads";
+	public final static String DIRECTORIO_UPLOAD = "www/aflcv-back/uploads";
 
+	@Value("${app.uploadsDir:uploads}")
+	private String uploadsDir;
+	
 	private Logger log = LoggerFactory.getLogger(ClienteController.class);
 
 	// Pasamos @Autowired en el constructor
@@ -196,7 +200,7 @@ public class ClienteController {
 
 		Resource resource = null;
 		try {
-			Path path = Paths.get(DIRECTORIO_UPLOAD+"/imagenes").resolve(nombreFoto).toAbsolutePath();
+			Path path = Paths.get(uploadsDir+"/imagenes").resolve(nombreFoto).toAbsolutePath();
 			resource = uploadFileService.salidaFichero(path);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

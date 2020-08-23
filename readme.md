@@ -1,6 +1,59 @@
-# ManyToMany con @JoinTable
 
-Las entidades son proyecto y herramienta. En la entidad proyecto se define la tabla join así:
+
+
+
+## DEPLOY
+
+### Ubuntu 20.04
+
+- instalar openjdk8
+
+- instalar postgresql (version 12)
+
+- generar el jar del proyecto y copiar en /home/antonio/www/aflcv-back/app.jar
+
+- en /home/antonio/www/aflcv-back, crear uploads/imagenes/ y cargar las imagenes necesarias
+
+- en /home/antonio/www/aflcv-back, crear downloads, necesario para que la app coloque el cv para su descarga
+
+- generar el servicio systemclt, para ello creamos el archivo etc/systemd/system/aflcv-service.service:
+
+```
+  [Unit]
+  Description=Java aflcv Service
+  
+  [Service]
+  User=antonio
+  
+  WorkingDirectory=/home/antonio/www/aflcv-back
+  ExecStart=java -jar /home/antonio/www/aflcv-back/app.jar
+  
+  [Install]
+  WantedBy=multi-user.target
+```
+
+  para arrancar el servicio:
+
+```
+  sudo systemctl enable aflcv-service
+  sudo systemctl start aflcv-service
+```
+
+  para el arranque con el boot:
+
+```
+  sudo systemctl deamon-reload
+```
+
+  
+
+  
+
+## JPA
+
+### ManyToMany con @JoinTable
+
+#### Las entidades son proyecto y herramienta. En la entidad proyecto se define la tabla join así:
 
 ```
 	@ManyToMany
@@ -14,7 +67,7 @@ Las entidades son proyecto y herramienta. En la entidad proyecto se define la ta
 	private List<Herramienta> herramientas;
 ```
 
-Definiendo clave única con el par "proyecto_id" y "herramienta_id, eliminamos el error de duplicidad en dicha tabla, que podría producirse con una actualizacion del tipo: 
+Definiendo clave única con el par "proyecto_id" y "herramienta_id, eliminamos el error de duplicidad en dicha tabla, que podría producirse con una actualización del tipo: 
 
        {
             "nombre": "nombre44",
@@ -59,5 +112,5 @@ Definidas las entidades de esta manera:
           		{"id": "4"}
               ]
           }
-  
+
 
